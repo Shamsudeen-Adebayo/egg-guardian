@@ -3,7 +3,8 @@
  * Updated for the new Design System
  */
 
-const API_BASE = window.location.origin.includes('localhost') 
+const isLocal = window.location.origin.includes('localhost') || window.location.origin.includes('127.0.0.1') || window.location.protocol === 'file:';
+const API_BASE = isLocal 
     ? 'http://localhost:8000/api/v1' 
     : 'https://egg-guardian-api.onrender.com/api/v1';
 
@@ -142,6 +143,41 @@ function setupEventListeners() {
     
     // Alerts
     els.ackAllBtn.addEventListener('click', acknowledgeAllAlerts);
+    
+    // Live Monitor
+    const clearBtn = document.getElementById('btn-clear-chart');
+    if (clearBtn) {
+        clearBtn.addEventListener('click', () => {
+            if (confirm("Are you sure you want to clear the graph data from your screen?")) {
+                if (chart) {
+                    chart.data.labels = [];
+                    chart.data.datasets[0].data = [];
+                    chart.update();
+                    els.liveTempValue.textContent = '—';
+                }
+            }
+        });
+    }
+    const liveSelect = document.getElementById('live-device-select');
+    if (liveSelect) {
+        liveSelect.addEventListener('change', (e) => {
+            const dbId = e.target.value;
+            if (dbId) {
+                setupWebSocket(dbId);
+            } else {
+                if (ws) ws.close();
+                els.wsStatus.textContent = 'Connecting';
+                els.wsStatus.className = 'status-pill status-syncing';
+                els.liveTempValue.textContent = '—';
+                if (chart) {
+                    chart.data.labels = [];
+                    chart.data.datasets[0].data = [];
+                    chart.update();
+                }
+            }
+        });
+    }
+
     els.ruleDevice.addEventListener('change', () => {
         setupWebSocket(els.ruleDevice.value);
     });
@@ -371,6 +407,7 @@ function updateUI() {
     }
     renderAlertsList();
     updateDeviceSelect();
+    updateLiveDeviceSelect();
     
     // Users Tab
     els.userCount.textContent = users.length - pendingUsers.length;
@@ -417,6 +454,20 @@ function renderDeviceList(container, list, compact) {
     `).join('');
     
     if (container.innerHTML !== html) container.innerHTML = html;
+}
+
+function updateLiveDeviceSelect() {
+    const select = document.getElementById('live-device-select');
+    if (!select) return;
+    const currentVal = select.value;
+    const html = '<option value="">Select Device...</option>' + 
+        devices.map(d => `<option value="${d.id}">${escapeHtml(d.device_id)}</option>`).join('');
+    if (select.innerHTML !== html) {
+        select.innerHTML = html;
+        if (currentVal && devices.some(d => d.id == currentVal)) {
+            select.value = currentVal;
+        }
+    }
 }
 
 function updateDeviceSelect() {
@@ -738,21 +789,6 @@ function initChart() {
             animation: false
         }
     });
-
-    // Setup clear button
-    const clearBtn = document.getElementById('btn-clear-chart');
-    if (clearBtn) {
-        clearBtn.addEventListener('click', () => {
-            if (confirm("Are you sure you want to clear the graph data from your screen?")) {
-                if (chart) {
-                    chart.data.labels = [];
-                    chart.data.datasets[0].data = [];
-                    chart.update();
-                    els.liveTempValue.textContent = '—';
-                }
-            }
-        });
-    }
 }
 
 function setupWebSocket(dbId) {
@@ -791,7 +827,7 @@ function setupWebSocket(dbId) {
     els.wsStatus.textContent = 'Connecting...';
     
     const wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-    const wsHost = window.location.origin.includes('localhost') ? 'localhost:8000' : 'egg-guardian-api.onrender.com';
+    const wsHost = isLocal ? 'localhost:8000' : 'egg-guardian-api.onrender.com';
     ws = new WebSocket(`${wsProtocol}//${wsHost}/api/v1/ws/${d.device_id}`);
     
     ws.onopen = () => {
