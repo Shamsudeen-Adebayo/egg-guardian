@@ -3,7 +3,8 @@
  * Updated for the new Design System
  */
 
-const API_BASE = window.location.origin.includes('localhost') 
+const isLocal = window.location.origin.includes('localhost') || window.location.origin.includes('127.0.0.1') || window.location.protocol === 'file:';
+const API_BASE = isLocal 
     ? 'http://localhost:8000/api/v1' 
     : 'https://egg-guardian-api.onrender.com/api/v1';
 
@@ -791,7 +792,7 @@ function setupWebSocket(dbId) {
     els.wsStatus.textContent = 'Connecting...';
     
     const wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-    const wsHost = window.location.origin.includes('localhost') ? 'localhost:8000' : 'egg-guardian-api.onrender.com';
+    const wsHost = isLocal ? 'localhost:8000' : 'egg-guardian-api.onrender.com';
     ws = new WebSocket(`${wsProtocol}//${wsHost}/api/v1/ws/${d.device_id}`);
     
     ws.onopen = () => {
