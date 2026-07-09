@@ -152,14 +152,14 @@ function setupEventListeners() {
     const clearBtn = document.getElementById('btn-clear-chart');
     if (clearBtn) {
         clearBtn.addEventListener('click', () => {
-            if (confirm("Are you sure you want to clear the graph data from your screen?")) {
+            showModal('Clear Graph', 'Are you sure you want to clear the graph data from your screen? This will not delete the data from the database.', () => {
                 if (chart) {
                     chart.data.labels = [];
                     chart.data.datasets[0].data = [];
                     chart.update();
                     els.liveTempValue.textContent = '—';
                 }
-            }
+            });
         });
     }
     const liveSelect = document.getElementById('live-device-select');
