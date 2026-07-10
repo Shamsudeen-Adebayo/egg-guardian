@@ -236,7 +236,7 @@ class _AlertsScreenState extends State<AlertsScreen> {
                   color: isAcked
                       ? EgTheme.bgElevated
                       : (isHigh ? EgTheme.danger.withOpacity(0.12) : EgTheme.warning.withOpacity(0.12)),
-                  borderRadius: EgTheme.r10,
+                  borderRadius: BorderRadius.circular(10),
                 ),
                 child: Icon(
                   isAcked

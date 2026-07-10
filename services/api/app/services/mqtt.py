@@ -135,6 +135,17 @@ class MQTTService:
             await db.flush()
             logger.info(f"Auto-registered device: {device_id}")
 
+            # Auto-create default alert rule so alerts can be triggered
+            rule = AlertRule(
+                device_id=device.id,
+                temp_min=36.0,
+                temp_max=40.0,
+                is_active=True
+            )
+            db.add(rule)
+            await db.flush()
+            logger.info(f"Auto-created default alert rule for device: {device_id}")
+
         # Create telemetry record
         telemetry = Telemetry(
             device_id=device.id,

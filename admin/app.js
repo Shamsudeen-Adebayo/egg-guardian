@@ -983,3 +983,24 @@ chartScript.onload = () => {
     initChart();
 };
 document.head.appendChild(chartScript);
+
+// Password Toggle functionality
+const togglePassBtn = document.getElementById('toggle-password');
+const loginPassInput = document.getElementById('login-password');
+const eyeShowIcon = document.getElementById('eye-icon-show');
+const eyeHideIcon = document.getElementById('eye-icon-hide');
+
+if (togglePassBtn && loginPassInput) {
+    togglePassBtn.addEventListener('click', () => {
+        const type = loginPassInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        loginPassInput.setAttribute('type', type);
+        
+        if (type === 'text') {
+            eyeShowIcon.classList.add('hidden');
+            eyeHideIcon.classList.remove('hidden');
+        } else {
+            eyeShowIcon.classList.remove('hidden');
+            eyeHideIcon.classList.add('hidden');
+        }
+    });
+}
