@@ -6,7 +6,7 @@ import 'package:egg_guardian/config.dart';
 import 'package:egg_guardian/models.dart';
 
 import 'package:egg_guardian/services/session_service.dart';
-
+import 'package:flutter/foundation.dart';
 /// API service for communicating with the Egg Guardian backend.
 class ApiService {
   String? _accessToken;
@@ -95,7 +95,7 @@ class ApiService {
       );
       return response.statusCode == 200;
     } catch (e) {
-      debugPrint('Error updating FCM token: $e');
+      print('Error updating FCM token: $e');
       return false;
     }
   }

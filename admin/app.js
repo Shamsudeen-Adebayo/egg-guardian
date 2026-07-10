@@ -788,15 +788,34 @@ function showToast(msg, isError = false) {
     }, 3000);
 }
 
+// ── API Helper ──────────────────────────────────────────────────────────
+
+async function apiCall(path, options = {}) {
+    try {
+        const res = await fetch(`${API_BASE}${path}`, {
+            ...options,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${authToken}`,
+                ...(options.headers || {})
+            }
+        });
+        if (!res.ok) return null;
+        return await res.json();
+    } catch (e) {
+        return null;
+    }
+}
+
 // ── Live Monitor (WebSocket + Chart) ────────────────────────────────────
 
 let ws = null;
 let chart = null;
 
-// Initialize simple canvas chart
+// Initialize chart — only called after Chart.js is confirmed loaded
 function initChart() {
     const canvas = document.getElementById('live-chart');
-    if (!canvas) return;
+    if (!canvas || chart) return; // don't double-init
     const ctx = canvas.getContext('2d');
     chart = new Chart(ctx, {
         type: 'line',
@@ -831,8 +850,8 @@ function initChart() {
                 },
                 y: {
                     display: true,
-                    min: 33,
-                    max: 42,
+                    min: 30,
+                    max: 45,
                     grid: { color: 'rgba(200,200,200,0.08)' },
                     ticks: { font: { size: 11 }, color: 'rgba(150,150,150,0.9)', callback: v => v + '°C' },
                     title: { display: true, text: 'Temp (°C)', font: { size: 11 }, color: 'rgba(150,150,150,0.8)' }
@@ -853,8 +872,8 @@ function initChart() {
 }
 
 function setupWebSocket(dbId) {
-    if (ws) ws.close();
-    
+    if (ws) { ws.close(); ws = null; }
+
     const d = devices.find(x => x.id == dbId);
     if (!d) {
         els.wsStatus.className = 'status-pill status-syncing';
@@ -865,25 +884,35 @@ function setupWebSocket(dbId) {
     }
 
     // Show threshold badge
-    if (els.liveThresholdRow && d.temp_min !== undefined) {
+    if (els.liveThresholdRow && d.temp_min !== undefined && d.temp_min !== null) {
         els.liveThresholdRow.style.display = 'flex';
-        els.liveThresholdLabel.textContent = `${d.temp_min.toFixed(1)}°C – ${d.temp_max.toFixed(1)}°C`;
+        if (els.liveThresholdLabel) els.liveThresholdLabel.textContent = `${d.temp_min.toFixed(1)}°C – ${d.temp_max.toFixed(1)}°C`;
     }
     if (els.liveTempHint) els.liveTempHint.textContent = `Monitoring: ${d.name || d.device_id}`;
 
-    if (!chart && window.Chart) initChart();
+    // Ensure Chart.js is ready
+    if (!chart) {
+        if (window.Chart) {
+            initChart();
+        } else {
+            // Chart.js not ready yet — wait for it
+            document.getElementById('live-chart').closest('.card').insertAdjacentHTML('afterbegin',
+                '<p style="text-align:center;padding:12px;color:var(--text-muted);font-size:13px;">Loading chart engine...</p>'
+            );
+        }
+    }
+
     if (chart) {
         chart.data.labels = [];
         chart.data.datasets[0].data = [];
         chart.update();
-        
+
         // Fetch historical data (last 2 hours)
         apiCall(`/devices/${dbId}/telemetry?hours=2&limit=80`).then(res => {
             if (res && res.readings && chart) {
                 const readings = [...res.readings].reverse(); // oldest first
                 chart.data.labels = readings.map(r => {
-                    const d = new Date(r.recorded_at);
-                    return d.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit', second: '2-digit'});
+                    return new Date(r.recorded_at).toLocaleTimeString([], {hour: '2-digit', minute: '2-digit', second: '2-digit'});
                 });
                 chart.data.datasets[0].data = readings.map(r => r.temp_c);
                 if (readings.length > 0) {
@@ -893,26 +922,26 @@ function setupWebSocket(dbId) {
             }
         });
     }
-    
+
     els.wsStatus.className = 'status-pill status-syncing';
     els.wsStatus.textContent = 'Connecting...';
-    
+
     const wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
     const wsHost = isLocal ? 'localhost:8000' : 'egg-guardian-api.onrender.com';
     ws = new WebSocket(`${wsProtocol}//${wsHost}/api/v1/ws/${d.device_id}`);
-    
+
     ws.onopen = () => {
         els.wsStatus.className = 'status-pill status-connected';
         els.wsStatus.textContent = 'Connected';
     };
-    
+
     ws.onmessage = (e) => {
         try {
             const data = JSON.parse(e.data);
             if (data.type === 'telemetry' && data.device_id === d.device_id && data.data && data.data.temp_c !== undefined) {
                 const tempC = data.data.temp_c;
                 els.liveTempValue.textContent = tempC.toFixed(1);
-                
+
                 if (chart) {
                     const timeStr = new Date(data.data.recorded_at || Date.now()).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', second:'2-digit'});
                     chart.data.labels.push(timeStr);
@@ -924,18 +953,27 @@ function setupWebSocket(dbId) {
                     chart.update();
                 }
             } else if (data.type === 'alert') {
-                loadAllData(); // Refresh alerts
+                loadAllData();
             }
         } catch (err) {}
     };
-    
+
+    ws.onerror = () => {
+        els.wsStatus.className = 'status-pill status-disconnected';
+        els.wsStatus.textContent = 'Error';
+    };
+
     ws.onclose = () => {
         els.wsStatus.className = 'status-pill status-syncing';
         els.wsStatus.textContent = 'Disconnected';
     };
 }
 
-// Load chart.js dynamically for the live monitor
-const script = document.createElement('script');
-script.src = 'https://cdn.jsdelivr.net/npm/chart.js';
-document.head.appendChild(script);
+// Load Chart.js and init chart when ready
+const chartScript = document.createElement('script');
+chartScript.src = 'https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js';
+chartScript.onload = () => {
+    // Pre-init chart once loaded so it's ready when user selects a device
+    initChart();
+};
+document.head.appendChild(chartScript);
