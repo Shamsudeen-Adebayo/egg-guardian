@@ -878,3 +878,7 @@ a { color: inherit; text-decoration: none; }
   .stat-grid { grid-template-columns: 1fr 1fr; }
   .login-card { padding: 28px 20px; }
 }
+
+.field-wrap { position: relative; }
+.password-toggle { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #94A3B8; cursor: pointer; padding: 4px; display: flex; align-items: center; justify-content: center; }
+.password-toggle:hover { color: #F8FAFC; }
