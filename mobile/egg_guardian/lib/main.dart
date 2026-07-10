@@ -15,7 +15,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
-  debugPrint("Handling a background message: ${message.messageId}");
+  print("Handling a background message: ${message.messageId}");
 }
 
 void main() async {
@@ -67,7 +67,7 @@ class _EggGuardianAppState extends State<EggGuardianApp> {
           ApiService().updateFcmToken(token);
         }
       }).catchError((e) {
-        debugPrint('Failed to get FCM Token: $e');
+        print('Failed to get FCM Token: $e');
       });
     }
     
