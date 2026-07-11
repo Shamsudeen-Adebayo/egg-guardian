@@ -381,17 +381,18 @@
         </div>
 
         <!-- Triggered alerts -->
-        <div class="card" style="margin-top:20px">
-          <div class="card-header">
-            <h3 class="card-title">Triggered Alerts</h3>
-            <div class="header-actions">
-              <span id="pending-alerts-count" class="tag tag-danger hidden">0 Active</span>
-              <button id="ack-all-btn" class="btn btn-ghost btn-sm hidden">Acknowledge All</button>
-            </div>
+        <div class="page-header" style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-top: 20px;">
+          <div style="flex: 1;">
+            <h2 class="page-title">Triggered Alerts</h2>
+            <p class="page-subtitle">Critical events & notifications</p>
           </div>
-          <div id="alerts-list" class="list-stack">
-            <p class="empty-msg">No alerts triggered.</p>
+          <div style="display: flex; gap: 8px; flex-shrink: 0; align-items: center;">
+            <button id="ack-all-btn" class="btn btn-outline-success hidden">Acknowledge All</button>
+            <span id="pending-alerts-count" class="tag tag-danger hidden"></span>
           </div>
+        </div>
+        <div id="alerts-list" class="list-stack">
+          <p class="empty-msg">No alerts triggered.</p>
         </div>
       </section>
 
