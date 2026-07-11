@@ -203,10 +203,18 @@ async function checkAuth() {
         
         currentUser = await response.json();
         
-        if (!currentUser.is_superuser) {
-            showLoginError('Access denied. Admin privileges required.');
+        // Allow normal active users to log in, but we will hide admin-only tabs
+        if (!currentUser.is_active) {
+            showLoginError('Account pending approval.');
             logout();
             return false;
+        }
+        
+        // Only show Admin-specific tabs to superusers
+        if (currentUser.is_superuser) {
+            document.getElementById('nav-users').style.display = 'flex';
+        } else {
+            document.getElementById('nav-users').style.display = 'none';
         }
         
         showApp();
