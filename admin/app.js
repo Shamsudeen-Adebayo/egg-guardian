@@ -840,7 +840,8 @@ function initChart() {
                 data: [],
                 borderColor: '#F59E0B',
                 borderWidth: 2,
-                tension: 0.4,
+                tension: 0.1,
+                borderJoinStyle: 'round',
                 pointRadius: 3,
                 pointHoverRadius: 5,
                 backgroundColor: 'rgba(245, 158, 11, 0.1)',
@@ -880,7 +881,9 @@ function initChart() {
                     }
                 }
             },
-            animation: false
+            animation: {
+                duration: 0
+            }
         }
     });
 }
@@ -977,9 +980,18 @@ function setupWebSocket(dbId) {
         els.wsStatus.textContent = 'Error';
     };
 
-    ws.onclose = () => {
+    ws.onclose = (event) => {
         els.wsStatus.className = 'status-pill status-syncing';
         els.wsStatus.textContent = 'Disconnected';
+
+        // Auto-reconnect if the device is still selected and it wasn't a clean close
+        const liveSelect = document.getElementById('live-device-select');
+        if (liveSelect && liveSelect.value == dbId && event.code !== 1000 && event.code !== 1001) {
+            els.wsStatus.textContent = 'Reconnecting...';
+            setTimeout(() => {
+                if (liveSelect.value == dbId) setupWebSocket(dbId);
+            }, 3000);
+        }
     };
 }
 
