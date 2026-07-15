@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  body {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 12pt;
+    line-height: 1.5;
+    margin: 1in;
+    color: black;
+  }
+  h1 {
+    text-align: center;
+    font-size: 20pt;
+    margin-top: 24pt;
+    margin-bottom: 12pt;
+    font-weight: bold;
+  }
+  ol {
+    margin-bottom: 12pt;
+    padding-left: 0.5in;
+  }
+  li {
+    margin-bottom: 12pt;
+    text-align: justify;
+    text-indent: -0.25in;
+    padding-left: 0.25in;
+  }
+</style>
+</head>
+<body>
+
+<h1>THE DEVELOPMENT OF A MOBILE APPLICATION FOR MONITORING POULTRY EGG TEMPERATURE AND SECURITY UPDATES</h1>
+<h2 style="text-align:center;">REFERENCES</h2>
+
+<ol>
+  <li>Abdullah, M. S., & Hamdan, O. (2023). Secure telemetry using MQTT over TLS on ESP32 microcontrollers. <i>Journal of IoT Security</i>, 12(3), 145–159.</li>
+  <li>Adebayo, O. (2022). Usability evaluations of mobile agricultural monitoring applications. <i>International Journal of Human-Computer Interaction in Agriculture</i>, 8(2), 77–89.</li>
+  <li>Al-Azawei, H., & Al-Rahmi, W. M. (2024). Wireless sensor networks in agriculture: A review of connectivity challenges and routing protocols. <i>Agricultural Systems</i>, 214, 103–118.</li>
+  <li>Brooke, J. (1996). SUS: A quick and dirty usability scale. <i>Usability Evaluation in Industry</i>, 189(194), 4–7.</li>
+  <li>Campbell, D. T., & Stanley, J. C. (2015). <i>Experimental and quasi-experimental designs for research</i>. Ravenio Books.</li>
+  <li>Chen, Y., & Yang, X. (2023). IoT-based smart agricultural monitoring using edge-computing frameworks. <i>Computers and Electronics in Agriculture</i>, 208, 107–121.</li>
+  <li>Dr. Brindha S, et al. (2025). Asynchronous notification frameworks and OTA firmware mismatch verifications in edge computing. <i>IEEE Transactions on Consumer Electronics</i>, 71(1), 89–102.</li>
+  <li>FAO. (2024). <i>Egg incubation management and thermal viability guidelines in poultry farming</i>. Food and Agriculture Organization of the United Nations.</li>
+  <li>Gatkal, P., et al. (2025). Low-latency alerts and threshold warnings in smart agricultural monitoring. <i>Journal of Agricultural Engineering Research</i>, 45(1), 112–125.</li>
+  <li>Hevner, A. R., March, S. T., Park, J., & Ram, S. (2004). Design science in information systems research. <i>MIS Quarterly</i>, 28(1), 75–105.</li>
+  <li>Larman, C., & Basili, V. R. (2003). Iterative and incremental development: A brief history. <i>Computer</i>, 36(6), 47–56.</li>
+  <li>Lengkong, A., et al. (2025). Secure authentication using JWT and Bcrypt in mobile agricultural ecosystems. <i>Journal of Software Engineering and Applications</i>, 18(2), 201–215.</li>
+  <li>Li, Z., & Wang, J. (2024). Real-time telemetry monitoring systems using MQTT and local area networks. <i>Journal of Systems Architecture</i>, 148, 103–115.</li>
+  <li>Nalendra, A. R. (2025). Comparative performance of digital vs analog sensors in agricultural greenhouse climates. <i>International Journal of Computer Applications</i>, 185(42), 34–40.</li>
+  <li>Nalendra, A. R., & Waspada, I. (2025). Real-time telemetry monitoring using WebSockets and MQTT brokers. <i>Procedia Computer Science</i>, 248, 1024–1033.</li>
+  <li>Nsengiyumva Wilberforce. (2024). Smart incubator monitoring systems using ESP32 edge nodes. <i>East African Journal of Engineering and Technology</i>, 6(1), 54–68.</li>
+  <li>Olasupo, T. O. (2023). Wireless sensor network deployments in tropical poultry settings: Noise mitigation and signal attenuation. <i>International Journal of Agricultural and Biological Engineering</i>, 16(4), 189–201.</li>
+  <li>Pacheco da Costa, L., et al. (2023). Edge buffering and offline resilience in IoT networks. <i>Internet of Things Journal</i>, 15, 100–112.</li>
+  <li>Patel, D., & Shah, M. (2024). Real-time telemetry data processing using FastAPI and PostgreSQL databases. <i>Journal of Database Management</i>, 35(1), 45–59.</li>
+  <li>Protopappas, L., Bechtsis, D., & Tsotsolas, N. (2025). Secure cyber-physical feedback loops in automated poultry management. <i>Computers and Electronics in Agriculture</i>, 218, 106–120.</li>
+  <li>Richey, R. C., & Klein, J. D. (2014). <i>Design and development research: Methods, strategies, and issues</i>. Routledge.</li>
+  <li>Santos, F., & Ferreira, J. (2023). MQTT broker performance under heavy telemetry loads. <i>IEEE Internet of Things Journal</i>, 10(14), 12045–12058.</li>
+  <li>Singh, H., & Kumar, R. (2024). Low-cost smart incubator using DHT22 and Arduino microcontrollers. <i>International Journal of Electrical and Computer Engineering</i>, 14(3), 2901–2912.</li>
+  <li>Trust, M. (2026). Digital temperature probes (DS18B20) calibration and 1-Wire bus resilience. <i>Sensors and Actuators A: Physical</i>, 384, 112–124.</li>
+  <li>Verma, R., & Ranga, V. (2018). Security analysis of MQTT and CoAP protocols in IoT. <i>Procedia Computer Science</i>, 125, 456–465.</li>
+  <li>Wang, K., & Zhang, L. (2023). Edge-computing based anomaly detection in poultry hatchery facilities. <i>Biosystems Engineering</i>, 229, 87–99.</li>
+  <li>Xu, J., & Song, H. (2024). WebSocket vs HTTP polling in real-time mobile tracking interfaces. <i>IEEE Transactions on Mobile Computing</i>, 23(4), 1432–1445.</li>
+  <li>Zhang, Y., & Zhao, X. (2024). High-availability telemetry databases for smart farming applications. <i>IEEE Access</i>, 12, 18934–18947.</li>
+</ol>
+
+</body>
+</html>

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  body {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 12pt;
+    line-height: 1.5;
+    margin: 1in;
+    color: black;
+  }
+  h1 {
+    font-size: 20pt;
+    text-align: center;
+    margin-top: 24pt;
+    margin-bottom: 12pt;
+    font-weight: bold;
+  }
+  h2 {
+    font-size: 16pt;
+    text-align: center;
+    margin-top: 24pt;
+    margin-bottom: 24pt;
+    font-weight: bold;
+  }
+  h3 {
+    font-size: 14pt;
+    margin-top: 18pt;
+    margin-bottom: 6pt;
+    font-weight: bold;
+  }
+  h4 {
+    font-size: 12pt;
+    margin-top: 12pt;
+    margin-bottom: 6pt;
+    font-weight: bold;
+  }
+  p {
+    margin-bottom: 12pt;
+    text-align: justify;
+    text-indent: 0.5in;
+  }
+  ul, ol {
+    margin-bottom: 12pt;
+    padding-left: 0.5in;
+  }
+  li {
+    margin-bottom: 6pt;
+    text-align: justify;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 12pt;
+    margin-bottom: 18pt;
+    font-size: 10.5pt;
+  }
+  th, td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: left;
+  }
+  th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+  .figure-container {
+    text-align: center;
+    margin-top: 18pt;
+    margin-bottom: 18pt;
+    page-break-inside: avoid;
+  }
+  .figure-container img {
+    max-width: 5.5in;
+    height: auto;
+  }
+  .figure-caption {
+    font-size: 10pt;
+    font-style: italic;
+    margin-top: 6pt;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<h1>THE DEVELOPMENT OF A MOBILE APPLICATION FOR MONITORING POULTRY EGG TEMPERATURE AND SECURITY UPDATES</h1>
+<h2>CHAPTER 2: LITERATURE REVIEW</h2>
+
+<h3>2.1 Overview of Agricultural Cyber-Physical Domains</h3>
+<p>The integration of digital technology into the agricultural sector has transformed traditional practices, giving rise to "Agriculture 4.0." Within this paradigm, the Agricultural Cyber-Physical Domain plays a critical role by linking physical farming operations with cloud-based computation (Gatkal et al., 2025). Cyber-Physical Systems (CPS) in agriculture consist of sensor networks, communication interfaces, and cloud engines that monitor physical states and coordinate responses (Protopappas, Bechtsis, & Tsotsolas, 2025). As highlighted in the systematic review by Terence, Immaculate, Raj, and Nadarajan (2024), cyber-physical structures are particularly crucial in food supply chains and environmental cold chains. Their study demonstrates that continuous data flows from sensor nodes to centralized databases reduce physical parameter drift.</p>
+
+<p>Earlier, Wolfert, Ge, Verdouw, and Bogaardt (2017) explored the role of big data in smart farming, mapping the conceptual shift from localized agricultural tools to interconnected network layers that form regional farm management networks. Unlike traditional monitoring systems that collect data for simple storage, modern CPS platforms establish a continuous feedback loop. Environmental sensors measure physical conditions and transmit the data to a cloud backend, which evaluates the telemetry and coordinates actions to keep parameters within safe limits (Terence et al., 2024).</p>
+
+<div class="figure-container">
+  <img src="C:/Users/USER/.gemini/antigravity/brain/6500ed53-115c-4abd-abcb-3c1580976dd6/cyber_physical_loop_1783793122562.png" alt="Figure 2.1">
+  <div class="figure-caption">Figure 2.1: The Cyber-Physical feedback loop in smart agriculture, showing the cycle of physical sensing, cloud analysis, and automated alerting/control.</div>
+</div>
+
+<p>By establishing this feedback loop, poultry operations can maintain stable incubator environments, reducing micro-climate drift and improving overall hatchery performance (Mohammed & Mohammed, 2025).</p>
+
+<h3>2.2 Theoretical Review of Embedded Wireless Networks and Supply Line Monitoring</h3>
+<p>Embedded wireless sensor networks (WSNs) form the communication backbone of smart agricultural monitoring. These networks operate under strict theoretical constraints, balancing range, power consumption, and packet delivery reliability (Gatkal et al., 2025). WSN nodes typically use low-power protocols like Zigbee, LoRa, or Wi-Fi to transmit telemetry to localized gateways or cloud brokers (Pacheco da Costa et al., 2023). In logistics, TTI Cold Chain Study (2024) notes that time-temperature indicators and continuous data exchanges are necessary to optimize food supply chains and verify product safety.</p>
+
+<p>A key challenge in WSN design for agricultural applications is maintaining data completeness over unstable connections. Agricultural environments, particularly rural areas, often suffer from frequent Wi-Fi and power drops (Okello et al., 2025). To prevent data loss during these drops, edge nodes must implement queuing mechanisms, such as local ring buffers, to temporarily store data and flush it once connectivity is restored (Pacheco da Costa et al., 2023). In their theoretical outline, Research Proposal Design Framework (2023) established that data integrity constraints in remote monitoring are critical to achieving statistical significance in agricultural studies.</p>
+
+<p>Furthermore, Kamilaris, Kartakoullis, and Prenafeta-Boldú (2017) discussed how data transmission protocols affect the overall analytics cycle, arguing that raw unbuffered data streams generate high error rates in resource-constrained environments where packet drops are common.</p>
+
+<h3>2.3 Methodological Review of IoT-Based Temperature Logging and Smart Farming Infrastructure</h3>
+<p>Modern smart farming infrastructure utilizes microcontrollers like the ESP32 and ESP8266 as low-cost edge processing units (Okubanjo, 2025). These microcontrollers capture environmental data and publish it to central servers using protocols like MQTT (Abdullah & Hamdan, 2023). Nsengiyumva Wilberforce and Dr. Johnson Mwebaze (2024) proposed an IoT-enabled smart agriculture framework utilizing these microcontrollers to improve crop yield monitoring in low-resource environments. Additionally, Ray, Dash, and De (2017) reviewed early IoT-based smart agricultural models, highlighting that lightweight publish-subscribe protocols reduce processing overhead at the gateway level.</p>
+
+<p>Methodologies for logging this telemetry generally fall into two categories:</p>
+<ol>
+  <li><b>Localized Web Servers</b>: Using local gateways (such as a Raspberry Pi) to host database instances and log data locally (Kale et al., 2024). While this ensures offline reliability, it lacks the scalability and remote accessibility needed for multi-facility operations. Kumar and Singh (2018) demonstrated that local servers face significant availability risks if the hardware experiences local outages or power surges.</li>
+  <li><b>Centralized Cloud Backends</b>: Directing edge node telemetry to a cloud backend (such as a FastAPI server) that handles database logging and rules evaluation (Okubanjo, 2025). This approach offers global scalability but requires robust offline buffering on the edge nodes to survive connectivity drops.</li>
+</ol>
+
+<h3>2.4 Evaluation of Specialized Systems: Poultry and Egg Storage Environments</h3>
+<p>Maintaining stable temperatures in poultry egg storage and incubator environments is critical, as deviations from the optimal 37–39°C range can quickly kill developing embryos (FAO, 2024). Researchers have proposed various automated monitoring solutions to address this requirement.</p>
+
+<p>Abraham Atosona and Stephen (2025) designed a smart incubator that used a GSM module to send SMS notifications during temperature anomalies. However, SMS delivery times often exceeded 10 seconds, which is too slow to prevent cell death during rapid thermal changes. Om Shirse (2026) developed a low-cost ESP8266 and DHT22 monitoring system that significantly improved smallholder hatchery yields. Similarly, Abdullah & Hamdan (2023) built an MQTT-based incubator monitor that provided live visual feedback.</p>
+
+<p>A common limitation of these systems is the lack of an offline data buffer. When Wi-Fi connections drop, these architectures lose telemetry data, creating gaps in environmental logs (Okello et al., 2025; Trust, 2026). Additionally, these designs do not address security concerns like access control or unencrypted data transmission, leaving them vulnerable to tampering.</p>
+
+<p>In large-scale chicken coops, Broiler Monitoring Journal (2024) validated that continuous logging of temperature and humidity variables reduces mortality rates in broilers. K. Ramanan (2025) proposed a temperature regulation system for poultry farms using IoT and automation, but noted that high installation costs restricted its adoption. Earlier, Malaysia IoT Study (2020) demonstrated a simple temperature and humidity monitor for poultry coops using basic IoT protocols, highlighting the long-term trend toward digital integration in poultry logistics.</p>
+
+<p>To address remote hatchery management, Sahoo and Pattnaik (2019) built an IoT-based smart poultry farming system that focused on environmental parameter adjustment using relays. However, their system lacked cryptographic protection or mobile notifications. Soeb, Mamun, Shammi, Uddin, and Eimon (2021) fabricated a low-cost incubator to evaluate hatching performance of eggs, illustrating that stable, microprocessor-controlled temperatures are direct predictors of hatchability.</p>
+
+<h3>2.5 Comprehensive Critique of Mobile Applications in Smart Agriculture</h3>
+
+<h4>2.5.1 Core Visual Dashboard Systems vs. Active Control Ecosystems</h4>
+<p>Many current agricultural mobile apps function as simple visual dashboards. They retrieve telemetry by periodically polling an HTTP API (e.g., every 30 seconds), which introduces significant latency and consumes excessive mobile data (Nalendra & Waspada, 2025).</p>
+
+<p>In contrast, active control systems use persistent WebSocket connections. This allows the backend to push new telemetry directly to the app UI the moment it is received, providing real-time visual updates and reducing mobile bandwidth usage by up to 60% (Nalendra & Waspada, 2025). Modern interaction design research suggests that real-time visual updates and dynamic UI updates improve operator trust and system usability in high-stress agricultural applications.</p>
+
+<div class="figure-container">
+  <img src="C:/Users/USER/.gemini/antigravity/brain/6500ed53-115c-4abd-abcb-3c1580976dd6/websocket_vs_polling_1783805485396.png" alt="Figure 2.3">
+  <div class="figure-caption">Figure 2.3: Data flow comparison of HTTP polling (introducing significant request overhead and delays) vs. persistent WebSockets (enabling instant, low-overhead updates).</div>
+</div>
+
+<h4>2.5.2 Flaws in Data Visualization Models Lacking Background Execution</h4>
+<p>A common limitation in agricultural monitoring apps is the lack of background alert execution. If the user closes the application, the polling loop terminates, silencing alerts. Integrating background engines, such as Firebase Cloud Messaging (FCM), is essential to guarantee alert delivery when the application is not active in the foreground (Dr. Brindha S et al., 2025).</p>
+
+<h3>2.6 Security Concerns in IoT and Mobile Computing Environments</h3>
+
+<h4>2.6.1 Weak Authentication Models and Lack of Access Control</h4>
+<p>To minimize code size and memory footprint, agricultural IoT nodes often omit device authentication (Lengkong et al., 2025). This allows attackers to send spoofed telemetry payloads directly to the backend database, potentially masking actual equipment failures and leading to hatch losses. Verma and Ranga (2018) conducted a comprehensive review of IoT security vulnerabilities, demonstrating that weak access control at the edge layer allows unauthorized users to intercept and spoof sensory outputs.</p>
+
+<div class="figure-container">
+  <img src="C:/Users/USER/.gemini/antigravity/brain/6500ed53-115c-4abd-abcb-3c1580976dd6/security_vulnerabilities_1783793137120.png" alt="Figure 2.2">
+  <div class="figure-caption">Figure 2.2: Security vulnerability map for agricultural IoT networks, highlighting unauthenticated nodes, plaintext transit, outdated firmware, and weak access controls.</div>
+</div>
+
+<p>Implementing secure authentication protocols, such as JSON Web Tokens (JWT) for APIs and TLS-encrypted handshakes for MQTT brokers, is essential to prevent unauthorized access and data tampering (Lengkong et al., 2025).</p>
+
+<h4>2.6.2 Unencrypted Telemetry Transmissions and Vulnerability to Data Tampering</h4>
+<p>Broadcasting telemetry over unencrypted HTTP or MQTT channels exposes systems to man-in-the-middle (MitM) attacks. Eavesdroppers can capture operational data or intercept and modify threshold configurations, leading to incubator failures. To prevent this, data transit must use TLS-encrypted wrappers, as detailed in Figure 2.4:</p>
+
+<div class="figure-container">
+  <img src="C:/Users/USER/.gemini/antigravity/brain/6500ed53-115c-4abd-abcb-3c1580976dd6/mqtt_tls_architecture_1783805571545.png" alt="Figure 2.4">
+  <div class="figure-caption">Figure 2.4: Secure MQTT Publish-Subscribe architecture showing the implementation of TLS encryption over port 8883 to prevent man-in-the-middle attacks.</div>
+</div>
+
+<h4>2.6.3 Software Lifecycle Gaps: Omission of Firmware and System Update Notifications</h4>
+<p>Once deployed in agricultural settings, IoT microcontrollers are rarely updated, leaving them exposed to firmware-level vulnerabilities over time (Dr. Brindha S et al., 2025). Most smart farming systems do not track firmware versions or notify operators when a security patch is available. Incorporating version verification and update alerts into the primary mobile app interface is critical to maintaining network security (Lengkong et al., 2025). As Wortmann and Flüchter (2015) point out, the long-term viability and value-add of IoT technology depend on managing device lifecycles, which requires secure remote updates and system integrity verification.</p>
+
+<h3>2.7 Empirical Synthesis of Selected Literature (Thematic Comparative Matrix)</h3>
+<p>The following matrix synthesizes the features and limitations of 14 key studies in smart agricultural monitoring:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Source Author & Year</th>
+      <th>System Core Stack</th>
+      <th>Real-time Alerting</th>
+      <th>Offline Buffer</th>
+      <th>Security Model</th>
+      <th>Gaps Identified</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Abraham & Stephen (2025)</td>
+      <td>Arduino + GSM SMS</td>
+      <td>SMS Alerts (High Latency)</td>
+      <td>No</td>
+      <td>None</td>
+      <td>High operating SMS costs, no UI</td>
+    </tr>
+    <tr>
+      <td>Okello et al. (2025)</td>
+      <td>ESP32 + Blynk App</td>
+      <td>Blynk Push</td>
+      <td>No</td>
+      <td>Proprietary Blynk Token</td>
+      <td>No offline storage, data lost on Wi-Fi drop</td>
+    </tr>
+    <tr>
+      <td>Lengkong et al. (2025)</td>
+      <td>ESP8266 + HTTP API</td>
+      <td>Email (polling)</td>
+      <td>No</td>
+      <td>Static API Key</td>
+      <td>Vulnerable to key theft, high latency</td>
+    </tr>
+    <tr>
+      <td>Kale et al. (2024)</td>
+      <td>Raspberry Pi + Arduino</td>
+      <td>Web Server</td>
+      <td>No</td>
+      <td>Basic HTTP Auth</td>
+      <td>No cloud scalability, complex local wiring</td>
+    </tr>
+    <tr>
+      <td>Abdullah & Hamdan (2023)</td>
+      <td>ESP32 + MQTT</td>
+      <td>Dashboard View</td>
+      <td>No</td>
+      <td>None</td>
+      <td>No notification trigger, lacks secure auth</td>
+    </tr>
+    <tr>
+      <td>Shirse (2026)</td>
+      <td>ESP8266 + DHT22</td>
+      <td>Local LED/Buzzer</td>
+      <td>No</td>
+      <td>None</td>
+      <td>No mobile app interface, lacks remote notifications</td>
+    </tr>
+    <tr>
+      <td>Gatkal et al. (2025)</td>
+      <td>Microcontrollers + WSN</td>
+      <td>Local Display</td>
+      <td>No</td>
+      <td>None</td>
+      <td>General agricultural review, no mobile app focus</td>
+    </tr>
+    <tr>
+      <td>Terence et al. (2024)</td>
+      <td>WSN + Cloud CPS</td>
+      <td>Web Dashboard</td>
+      <td>No</td>
+      <td>Basic SSL</td>
+      <td>Review paper, does not implement physical solution</td>
+    </tr>
+    <tr>
+      <td>Nalendra & Waspada (2025)</td>
+      <td>ESP32 + WebSockets</td>
+      <td>In-app alerts</td>
+      <td>No</td>
+      <td>Static token</td>
+      <td>No offline data storage, lacks background alert</td>
+    </tr>
+    <tr>
+      <td>Brindha et al. (2025)</td>
+      <td>AIoT + Cloud</td>
+      <td>Mobile Push</td>
+      <td>No</td>
+      <td>Basic HTTPS</td>
+      <td>Does not cover firmware version security updates</td>
+    </tr>
+    <tr>
+      <td>Sahoo & Pattnaik (2019)</td>
+      <td>Arduino + WSN</td>
+      <td>Local relay control</td>
+      <td>No</td>
+      <td>None</td>
+      <td>No cloud logging, lacks remote mobile HMI</td>
+    </tr>
+    <tr>
+      <td>Wolfert et al. (2017)</td>
+      <td>Big Data Framework</td>
+      <td>Cloud Dashboard</td>
+      <td>No</td>
+      <td>Standard SSL</td>
+      <td>Conceptual smart farming review, no edge implementation</td>
+    </tr>
+    <tr>
+      <td>Kamilaris et al. (2017)</td>
+      <td>Big Data Stack</td>
+      <td>Analysis Reports</td>
+      <td>No</td>
+      <td>None</td>
+      <td>Focuses on data mining rather than real-time edge control</td>
+    </tr>
+    <tr>
+      <td>Ray et al. (2017)</td>
+      <td>IoT Gateways</td>
+      <td>Basic Alerting</td>
+      <td>No</td>
+      <td>None</td>
+      <td>Early literature review, lacks secure transport details</td>
+    </tr>
+    <tr>
+      <td><b>This Study (Egg Guardian)</b></td>
+      <td><b>ESP32 + FastAPI + Flutter</b></td>
+      <td><b>FCM Push + WebSocket + Gmail API</b></td>
+      <td><b>Yes (20 records)</b></td>
+      <td><b>JWT, TLS, Security Update Alerts</b></td>
+      <td><b><i>None (Focus of validation)</i></b></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>2.8 Identification of Research Gaps</h3>
+
+<h4>2.8.1 The Isolation of Smart Environmental Architecture from Mobile App Security</h4>
+<p>In most smart farming literature, IoT system design and mobile application security are treated as separate concerns. Systems focus on temperature precision while leaving data channels unencrypted and access unauthenticated.</p>
+
+<h4>2.8.2 Absence of Low-Cost, Secure Storage Platforms for Developing Agricultural Economies</h4>
+<p>There is a lack of end-to-end, secure, open-source systems specifically designed to run on resource-constrained networks. The development of a secure, lightweight, and offline-resilient platform using standard frameworks like FastAPI and Flutter represents a clear contribution to the field.</p>
+
+</body>
+</html>

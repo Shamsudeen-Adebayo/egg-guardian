@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  body {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 12pt;
+    line-height: 1.5;
+    margin: 1in;
+    color: black;
+  }
+  h1 {
+    font-size: 20pt;
+    text-align: center;
+    margin-top: 24pt;
+    margin-bottom: 12pt;
+    font-weight: bold;
+  }
+  h2 {
+    font-size: 16pt;
+    text-align: center;
+    margin-top: 24pt;
+    margin-bottom: 24pt;
+    font-weight: bold;
+  }
+  h3 {
+    font-size: 14pt;
+    margin-top: 18pt;
+    margin-bottom: 6pt;
+    font-weight: bold;
+  }
+  h4 {
+    font-size: 12pt;
+    margin-top: 12pt;
+    margin-bottom: 6pt;
+    font-weight: bold;
+  }
+  p {
+    margin-bottom: 12pt;
+    text-align: justify;
+    text-indent: 0.5in;
+  }
+  ul, ol {
+    margin-bottom: 12pt;
+    padding-left: 0.5in;
+  }
+  li {
+    margin-bottom: 6pt;
+    text-align: justify;
+  }
+  pre {
+    font-family: Consolas, Monaco, monospace;
+    font-size: 10pt;
+    background-color: #f5f5f5;
+    padding: 12px;
+    border: 1px solid #ccc;
+    margin-bottom: 12pt;
+    overflow-x: auto;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 12pt;
+    margin-bottom: 18pt;
+    font-size: 10.5pt;
+  }
+  th, td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: left;
+  }
+  th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+  .figure-container {
+    text-align: center;
+    margin-top: 18pt;
+    margin-bottom: 18pt;
+    page-break-inside: avoid;
+  }
+  .figure-container img {
+    max-width: 5.5in;
+    height: auto;
+  }
+  .figure-caption {
+    font-size: 10pt;
+    font-style: italic;
+    margin-top: 6pt;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<h1>THE DEVELOPMENT OF A MOBILE APPLICATION FOR MONITORING POULTRY EGG TEMPERATURE AND SECURITY UPDATES</h1>
+<h2>CHAPTER 3: RESEARCH METHODOLOGY & SYSTEM DESIGN</h2>
+
+<h3>3.1 Introduction</h3>
+<p>This chapter explains the methodology used in designing, developing, implementing, and testing the proposed mobile application for poultry egg temperature monitoring and security update notifications. The Egg Guardian system integrates physical microcontrollers, cloud APIs, and a mobile frontend to establish a secure, real-time cyber-physical loop (Protopappas, Bechtsis, & Tsotsolas, 2025). The following sections detail the research design, system development life cycle phases, functional and non-functional requirements, architectural topologies, UML design diagrams, hardware wiring schematics, and testing criteria.</p>
+
+<hr>
+
+<h3>3.2 Research Design</h3>
+<p>This study adopts a hybrid research design combining <b>Design and Development Research (DDR)</b> (Richey & Klein, 2014) with <b>Experimental Research</b> (Campbell & Stanley, 2015).</p>
+<ul>
+  <li><b>Design and Development Research</b>: Focusing on the systematic study of designing, developing, and evaluating software systems, DDR provides a structured framework for translating requirements into functional cyber-physical components (Hevner, March, Park, & Ram, 2004). This design is highly appropriate for developing a mobile application since it guides the engineering lifecycle from architectural modeling to active HMI layouts.</li>
+  <li><b>Experimental Research</b>: Involves testing the physical subsystem under varying environmental thermal loads and network connectivity states. This allows the study to empirically measure sensor accuracy (MAE) and packet recovery rates during simulated Wi-Fi drops (Pacheco da Costa et al., 2023).</li>
+</ul>
+
+<hr>
+
+<h3>3.3 System Development Methodology</h3>
+<p>This study utilizes the <b>Iterative Development Model</b> (Larman & Basili, 2003) to build, refine, and validate the software components. The development lifecycle is structured into six phases:</p>
+<ol>
+  <li><b>Requirement Analysis</b>: Translating biological temperature constraints and security lifecycle needs into hardware and software specifications (Gatkal et al., 2025).</li>
+  <li><b>System Design</b>: Modeling database structures, message-passing sequences, use case flows, and hardware schematics.</li>
+  <li><b>Development</b>: Writing the C++ firmware for the ESP32, constructing the FastAPI server using Python, and building the Flutter mobile UI using Dart.</li>
+  <li><b>Testing</b>: Executing unit tests on API endpoints, testing MQTT broker transport latency, and verifying FCM notification delivery.</li>
+  <li><b>Deployment</b>: Uploading the backend API to the cloud, distributing the Flutter mobile app build, and flashing firmware onto edge microcontrollers.</li>
+  <li><b>Maintenance</b>: Monitoring historical logs, adjusting threshold hysteresis values, and pushing firmware security update notification strings.</li>
+</ol>
+
+<hr>
+
+<h3>3.4 Requirement Analysis</h3>
+
+<h4>3.4.1 Functional Requirements</h4>
+<p>The system must execute the following functions to meet user needs:</p>
+<ul>
+  <li><b>User Registration and Login</b>: Provide secure account creation and session authorization using JSON Web Tokens (JWT) (Lengkong et al., 2025).</li>
+  <li><b>Display Real-Time Egg Storage Temperature</b>: Visualize current temperature readings captured by the DS18B20 digital sensor (Trust, 2026).</li>
+  <li><b>Display Security Status</b>: Render device update alerts and firmware version mismatch warning banners in the mobile UI.</li>
+  <li><b>Push Notifications for Abnormal Temperature</b>: Trigger system-level FCM alarms when temperatures cross the safe boundaries of 37.0°C to 39.0°C (FAO, 2024).</li>
+  <li><b>Security Update Notifications</b>: Notify the operator when a firmware version mismatch is detected in the backend broker (Dr. Brindha S et al., 2025).</li>
+  <li><b>Temperature History</b>: Render scrollable charts of historical temperature telemetry logged over time.</li>
+  <li><b>User Profile Management</b>: Allow operators to modify threshold limits, user passwords, and notification preferences.</li>
+</ul>
+
+<h4>3.4.2 Non-Functional Requirements</h4>
+<ul>
+  <li><b>Fast Response Time</b>: End-to-end telemetry propagation and FCM alert notification delivery must take less than 2.0 seconds (Nalendra & Waspada, 2025).</li>
+  <li><b>Secure Authentication</b>: Passwords must be hashed using Bcrypt, and API route communication must require JWT validation (Verma & Ranga, 2018).</li>
+  <li><b>High Availability</b>: The FastAPI server must handle asynchronous non-blocking connection requests from multiple edge nodes and mobile clients concurrently.</li>
+  <li><b>User-Friendly Interface</b>: The Flutter application must incorporate modern UX practices, intuitive color scales (representing thermal zones), and clear alert banners (Adebayo, 2022).</li>
+  <li><b>Scalability</b>: The backend database must support writing and reading historical telemetry logs across multiple facilities.</li>
+  <li><b>Reliability</b>: The system must maintain data completeness during Wi-Fi drops by caching logs on the edge node buffer and flushing them on reconnect (Pacheco da Costa et al., 2023).</li>
+</ul>
+
+<hr>
+
+<h3>3.5 System Architecture</h3>
+
+<h4>3.5.1 System Architecture Topology</h4>
+<p>The physical and virtual components are connected in a multi-tier cyber-physical topology.</p>
+
+<pre>
+Temperature Source (DS18B20 Probe)
+        │
+        ▼
+ ESP32 Edge Node (Buffer Queue)
+        │
+        ▼ (MQTT TLS Port 8883)
+ Backend/API (FastAPI Server)
+        │
+        ├────────────────────────┐
+        ▼                        ▼
+ Database (PostgreSQL)     Push Notification Service (FCM)
+                                 │
+                                 ▼
+                          Mobile Application (Flutter UI)
+</pre>
+
+<p>Data flows through this architecture in a continuous sequence:</p>
+<ol>
+  <li>The <b>DS18B20 digital temperature probe</b> captures thermal readings and transmits them to the <b>ESP32 microcontroller</b> (Trust, 2026).</li>
+  <li>The ESP32 publishes the telemetry data over an encrypted <b>MQTT TLS channel</b> (port 8883) to the <b>FastAPI Backend/API</b> (Abdullah & Hamdan, 2023).</li>
+  <li>The FastAPI server processes the payload, checks edge firmware versions, writes the record to the <b>PostgreSQL Database</b>, and broadcasts the data to active clients via WebSockets.</li>
+  <li>If the temperature violates configured limits, the FastAPI backend sends an alert payload to the <b>Firebase Cloud Messaging (FCM) Service</b>, which pushes a system-level alarm to the <b>Flutter Mobile Application</b> (Dr. Brindha S et al., 2025).</li>
+</ol>
+
+<div class="figure-container">
+  <img src="C:/Users/USER/.gemini/antigravity/brain/6500ed53-115c-4abd-abcb-3c1580976dd6/system_architecture_diagram_1783789257793.png" alt="Figure 3.1">
+  <div class="figure-caption">Figure 3.1: Layered system architecture of the Egg Guardian system, illustrating the Physical/Sensing, Transport, Cloud Service, and HMI/Mobile layers.</div>
+</div>
+
+<hr>
+
+<h3>3.6 System Design</h3>
+
+<h4>3.6.1 Use Case Diagram</h4>
+<div class="figure-container">
+  <img src="C:/Users/USER/.gemini/antigravity/brain/6500ed53-115c-4abd-abcb-3c1580976dd6/use_case_diagram_1783877000546.png" alt="Figure 3.5">
+  <div class="figure-caption">Figure 3.5: Use Case Diagram for the Egg Guardian mobile app.</div>
+</div>
+
+<h4>3.6.2 Activity Diagram</h4>
+<div class="figure-container">
+  <img src="C:/Users/USER/.gemini/antigravity/brain/6500ed53-115c-4abd-abcb-3c1580976dd6/activity_diagram_1783877038773.png" alt="Figure 3.6">
+  <div class="figure-caption">Figure 3.6: Activity Diagram showing system processing logic for network drops and alert states.</div>
+</div>
+
+<h4>3.6.3 Sequence Diagram</h4>
+<div class="figure-container">
+  <img src="C:/Users/USER/.gemini/antigravity/brain/6500ed53-115c-4abd-abcb-3c1580976dd6/data_flow_sequence_1783859443532.png" alt="Figure 3.2">
+  <div class="figure-caption">Figure 3.2: Asynchronous UML Data Flow Sequence Diagram, illustrating message exchanges between the ESP32 node, MQTT broker, FastAPI backend, PostgreSQL database, and the Flutter mobile application via WebSockets and FCM.</div>
+</div>
+
+<h4>3.6.4 Entity Relationship Diagram (ERD)</h4>
+<div class="figure-container">
+  <img src="C:/Users/USER/.gemini/antigravity/brain/6500ed53-115c-4abd-abcb-3c1580976dd6/database_schema_1783859407387.png" alt="Figure 3.3">
+  <div class="figure-caption">Figure 3.3: Entity-Relationship database schema diagram showing the tables, primary/foreign keys, and relational cardialities.</div>
+</div>
+
+<h4>3.6.5 Hardware Wiring Schematic</h4>
+<div class="figure-container">
+  <img src="C:/Users/USER/.gemini/antigravity/brain/6500ed53-115c-4abd-abcb-3c1580976dd6/hardware_schematic_1783859385884.png" alt="Figure 3.4">
+  <div class="figure-caption">Figure 3.4: Hardware wiring schematic showing the ESP32 NodeMCU, DHT22 and DS18B20 sensors, pull-up resistors, relay board, and AC heating/cooling actuators.</div>
+</div>
+
+<hr>
+
+<h3>3.7 Development Tools and Technologies</h3>
+
+<h4>3.7.1 Mobile Development</h4>
+<p><b>Flutter (Dart)</b>: An open-source UI software development kit created by Google, used to compile the cross-platform Android and iOS application from a single codebase (Adebayo, 2022). It provides high-performance WebSocket listeners and charts widgets.</p>
+
+<h4>3.7.2 Backend</h4>
+<p><b>FastAPI (Python)</b>: A modern, fast (high-performance) web framework for building APIs with Python 3.11. Pydantic handles validation, and Starlette handles ASGI routing, enabling asynchronous non-blocking connection processing.</p>
+
+<h4>3.7.3 Database</h4>
+<p><b>PostgreSQL</b>: A powerful, open-source object-relational database system, utilized as the central repository to log historical temperature records, security alerts, and user profiles.</p>
+
+<h4>3.7.4 Programming Languages</h4>
+<ul>
+  <li><b>Dart</b>: Used for mobile UI widgets layouts and WebSocket client routines.</li>
+  <li><b>Python</b>: Used for FastAPI endpoint logic, security checks, and database queries.</li>
+  <li><b>C++ (Arduino IDE)</b>: Used to write the ESP32 firmware, managing the local sensor query loop, offline buffering, and MQTT connections.</li>
+</ul>
+
+<h4>3.7.5 Development Tools</h4>
+<ul>
+  <li><b>Android Studio</b>: The official integrated development environment (IDE) for Google's Android operating system, used to emulate mobile runs.</li>
+  <li><b>Visual Studio Code</b>: A lightweight code editor used for writing Python backend API routines and Dart scripts.</li>
+  <li><b>GitHub</b>: A Web-based Git repository hosting service used for source code version control and collaborative backups.</li>
+</ul>
+
+<hr>
+
+<h3>3.8 Database Design</h3>
+
+<h4>3.8.1 Database Schema and Tables</h4>
+<p>The database consists of four tables designed to store telemetry logs, credentials, and alerts:</p>
+
+<h4>Table 3.1: Users Table Schema</h4>
+<table>
+  <thead>
+    <tr>
+      <th>Attribute Name</th>
+      <th>Data Type</th>
+      <th>Constraints</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>id</td>
+      <td>SERIAL</td>
+      <td>Primary Key</td>
+      <td>Unique internal user identifier</td>
+    </tr>
+    <tr>
+      <td>email</td>
+      <td>VARCHAR(255)</td>
+      <td>Unique, Not Null</td>
+      <td>User login credentials email address</td>
+    </tr>
+    <tr>
+      <td>password_hash</td>
+      <td>VARCHAR(255)</td>
+      <td>Not Null</td>
+      <td>Bcrypt hashed session password</td>
+    </tr>
+    <tr>
+      <td>role</td>
+      <td>VARCHAR(50)</td>
+      <td>Not Null</td>
+      <td>Authorization scope (Operator/Admin)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4>Table 3.2: Temperature Records Table Schema</h4>
+<table>
+  <thead>
+    <tr>
+      <th>Attribute Name</th>
+      <th>Data Type</th>
+      <th>Constraints</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>id</td>
+      <td>SERIAL</td>
+      <td>Primary Key</td>
+      <td>Unique record identifier</td>
+    </tr>
+    <tr>
+      <td>sensor_id</td>
+      <td>VARCHAR(100)</td>
+      <td>Not Null</td>
+      <td>Hardware DS18B20 digital address string</td>
+    </tr>
+    <tr>
+      <td>temperature</td>
+      <td>NUMERIC(5, 2)</td>
+      <td>Not Null</td>
+      <td>Captured decimal temperature reading (°C)</td>
+    </tr>
+    <tr>
+      <td>timestamp</td>
+      <td>TIMESTAMP</td>
+      <td>Not Null</td>
+      <td>Database record ingestion time</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4>Table 3.3: Security Alerts Table Schema</h4>
+<table>
+  <thead>
+    <tr>
+      <th>Attribute Name</th>
+      <th>Data Type</th>
+      <th>Constraints</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>id</td>
+      <td>SERIAL</td>
+      <td>Primary Key</td>
+      <td>Unique warning alert identifier</td>
+    </tr>
+    <tr>
+      <td>alert_type</td>
+      <td>VARCHAR(100)</td>
+      <td>Not Null</td>
+      <td>Alert category string (e.g. Firmware Mismatch)</td>
+    </tr>
+    <tr>
+      <td>message</td>
+      <td>TEXT</td>
+      <td>Not Null</td>
+      <td>User-facing descriptive notification payload</td>
+    </tr>
+    <tr>
+      <td>timestamp</td>
+      <td>TIMESTAMP</td>
+      <td>Not Null</td>
+      <td>Occurrence timestamp of security event</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4>Table 3.4: Notifications Table Schema</h4>
+<table>
+  <thead>
+    <tr>
+      <th>Attribute Name</th>
+      <th>Data Type</th>
+      <th>Constraints</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>id</td>
+      <td>SERIAL</td>
+      <td>Primary Key</td>
+      <td>Unique identifier for notification track</td>
+    </tr>
+    <tr>
+      <td>user_id</td>
+      <td>INTEGER</td>
+      <td>Foreign Key</td>
+      <td>Reference mapping to Users PK (id)</td>
+    </tr>
+    <tr>
+      <td>title</td>
+      <td>VARCHAR(255)</td>
+      <td>Not Null</td>
+      <td>Mobile notification alert title header</td>
+    </tr>
+    <tr>
+      <td>body</td>
+      <td>TEXT</td>
+      <td>Not Null</td>
+      <td>Mobile notification alert body content</td>
+    </tr>
+    <tr>
+      <td>status</td>
+      <td>VARCHAR(50)</td>
+      <td>Not Null</td>
+      <td>Status flag (Delivered / Pending / Read)</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr>
+
+<h3>3.9 System Implementation</h3>
+
+<h4>3.9.1 Login Page</h4>
+<p>The login page serves as the entry point for the mobile application. Operators input their email and password, which the Flutter app sends to the backend via HTTPS. If verified, the app receives a JWT token and saves it to secure storage to authorize subsequent requests.</p>
+
+<h4>3.9.2 Dashboard</h4>
+<p>The Dashboard acts as the primary cockpit for the poultry operator. It initializes WebSocket connections to the cloud backend to stream live temperature data and registers the FCM token to enable push notifications (Nalendra & Waspada, 2025).</p>
+
+<h4>3.9.3 Temperature Monitoring Screen</h4>
+<p>This screen displays real-time temperature readings on a color-coded gauge (Green: safe, Red: abnormal). It includes a historical line chart powered by the Flutter Syncfusion charting library, showing temperature trends over a 24-hour window.</p>
+
+<h4>3.9.4 Notification Screen</h4>
+<p>Displays a scrollable log of historical security update alerts and temperature threshold warnings, retrieving records from the backend API.</p>
+
+<h4>3.9.5 Settings Page</h4>
+<p>Allows farm administrators to adjust temperature threshold boundaries (T<sub>min</sub>, T<sub>max</sub>) and toggle push notification preferences.</p>
+
+<h4>3.9.6 Backend Integration</h4>
+<p>The integration connects the mobile app with the backend using WebSockets for real-time telemetry streaming and REST APIs for authentication and settings management.</p>
+
+<hr>
+
+<h3>3.10 Testing and Validation</h3>
+
+<h4>3.10.1 Testing Methods</h4>
+<ul>
+  <li><b>Unit Testing</b>: Validating isolated functions, such as the ESP32 ring buffer enqueue logic and backend JWT signature parsing.</li>
+  <li><b>Integration Testing</b>: Verifying the communication links between the ESP32 edge node, MQTT broker, and FastAPI backend API.</li>
+  <li><b>System Testing</b>: Testing the end-to-end system from physical sensor read to mobile UI update.</li>
+  <li><b>User Acceptance Testing (UAT)</b>: Under UAT, farm operators navigate the app to verify dashboard usability, historical chart readability, and alert responsiveness.</li>
+</ul>
+
+<h4>3.10.2 UAT Survey Structure (System Usability Scale)</h4>
+<p>The User Acceptance Testing is evaluated using the standardized 10-item Likert-scale System Usability Scale (SUS) questionnaire (Brooke, 1996). Ten operators evaluate the application across statements such as: "I found the system very easy to use" and "I would need the support of a technical person to be able to use this app."</p>
+
+<p>The final SUS score (S<sub>total</sub>) is computed as follows:</p>
+<ul>
+  <li>For odd-numbered questions (i &in; {1, 3, 5, 7, 9}):
+    <br><center><i>S<sub>i</sub> = X<sub>i</sub> - 1</i></center><br>
+    where X<sub>i</sub> is the user score (1 to 5).</li>
+  <li>For even-numbered questions (i &in; {2, 4, 6, 8, 10}):
+    <br><center><i>S<sub>i</sub> = 5 - X<sub>i</sub></i></center><br></li>
+  <li>The cumulative score is scaled to a value out of 100:
+    <br><center><i>S<sub>total</sub> = 2.5 &times; &sum; S<sub>i</sub></i></center><br></li>
+</ul>
+<p>A threshold score of S<sub>total</sub> &ge; 70 is required to validate system readiness for field operations.</p>
+
+<h4>3.10.3 Evaluation Criteria</h4>
+<ul>
+  <li><b>Accuracy of Temperature Updates</b>: The DS18B20 sensor readings must align with a reference thermometer, maintaining an MAE &le; 0.5°C (Trust, 2026).</li>
+  <li><b>Notification Delivery</b>: Notifications must arrive within 2.0 seconds of a threshold breach (Nalendra & Waspada, 2025).</li>
+  <li><b>Response Time</b>: WebSocket updates must refresh the dashboard charts in under 500ms.</li>
+  <li><b>Usability</b>: The app must achieve an average System Usability Scale (SUS) score above 70 during UAT trials.</li>
+  <li><b>Reliability</b>: The ESP32 local buffer must capture all telemetry points during Wi-Fi drops and flush them with 100% data recovery on reconnect (Pacheco da Costa et al., 2023).</li>
+</ul>
+
+<hr>
+
+<h3>3.11 Ethical Considerations</h3>
+
+<h4>3.11.1 User Privacy</h4>
+<p>No personal data beyond the user's email address is collected. This minimizes the risk of exposing sensitive user information.</p>
+
+<h4>3.11.2 Data Security</h4>
+<p>All API route communications are secured with HTTPS and JWT authorization tokens. This ensures only authorized users can read historical logs or modify temperature configurations.</p>
+
+<h4>3.11.3 Secure Authentication</h4>
+<p>User passwords are encrypted with Bcrypt before storage in the PostgreSQL database, protecting user credentials in the event of a database compromise.</p>
+
+<h4>3.11.4 Data Confidentiality</h4>
+<p>Telemetry data is transmitted over encrypted channels (MQTTS/TLS port 8883) to prevent unauthorized interception.</p>
+
+<hr>
+
+<h3>3.12 Summary</h3>
+<p>This chapter explained the design and development methodology of the Egg Guardian system. It described the iterative development model, functional and non-functional requirements, system architecture, UML design diagrams, hardware wiring schematics, and testing criteria. The next chapter presents the implementation, results, and experimental evaluation.</p>
+
+</body>
+</html>

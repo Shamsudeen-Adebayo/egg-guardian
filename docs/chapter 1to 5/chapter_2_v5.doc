@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  body {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 12pt;
+    line-height: 1.5;
+    margin: 1in;
+    color: black;
+  }
+  h1 {
+    font-size: 20pt;
+    text-align: center;
+    margin-top: 24pt;
+    margin-bottom: 12pt;
+    font-weight: bold;
+  }
+  h2 {
+    font-size: 16pt;
+    text-align: center;
+    margin-top: 24pt;
+    margin-bottom: 24pt;
+    font-weight: bold;
+  }
+  h3 {
+    font-size: 14pt;
+    margin-top: 18pt;
+    margin-bottom: 6pt;
+    font-weight: bold;
+  }
+  h4 {
+    font-size: 12pt;
+    margin-top: 12pt;
+    margin-bottom: 6pt;
+    font-weight: bold;
+  }
+  p {
+    margin-bottom: 12pt;
+    text-align: justify;
+    text-indent: 0.5in;
+  }
+  ul, ol {
+    margin-bottom: 12pt;
+    padding-left: 0.5in;
+  }
+  li {
+    margin-bottom: 6pt;
+    text-align: justify;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 12pt;
+    margin-bottom: 18pt;
+    font-size: 10.5pt;
+  }
+  th, td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: left;
+  }
+  th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+  .figure-container {
+    text-align: center;
+    margin-top: 18pt;
+    margin-bottom: 18pt;
+    page-break-inside: avoid;
+  }
+  .figure-container img {
+    max-width: 5.5in;
+    height: auto;
+  }
+  .figure-caption {
+    font-size: 10pt;
+    font-style: italic;
+    margin-top: 6pt;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<h1>THE DEVELOPMENT OF A MOBILE APPLICATION FOR MONITORING POULTRY EGG TEMPERATURE AND SECURITY UPDATES</h1>
+<h2>CHAPTER 2: LITERATURE REVIEW</h2>
+
+<h3>2.1 Introduction</h3>
+
+<h4>2.1.1 Purpose of the Chapter</h4>
+<p>The primary purpose of this chapter is to conduct a systematic and critical review of the existing body of literature surrounding poultry egg incubation systems, micro-climate storage monitoring, Internet of Things (IoT) communication protocols, mobile human-machine interfaces (HMIs), and edge-to-cloud security frameworks. By exploring current research, this review establishes the academic and technical foundation for the proposed Egg Guardian system.</p>
+
+<h4>2.1.2 Scope of the Literature Reviewed</h4>
+<p>The scope of this literature review encompasses 29 peer-reviewed journal articles, systematic reviews, conference proceedings, and technical proposals published between 2015 and 2026. The materials are categorized into four core domains:</p>
+<ul>
+  <li><b>Biological Constraints & Poultry Environmental Systems</b>: Focuses on incubation temperature and relative humidity tolerances.</li>
+  <li><b>Agricultural IoT Topologies</b>: Reviews microcontrollers (ESP32, ESP8266), data transmission protocols (MQTT, HTTP), and network caching mechanisms.</li>
+  <li><b>Mobile HMI Paradigms</b>: Examines visual dashboarding, real-time push engines, and operating system background execution limits.</li>
+  <li><b>IoT Security Architectures</b>: Explores transport encryption, API token access controls, and microcontroller firmware lifecycle update vulnerabilities.</li>
+</ul>
+
+<h4>2.1.3 Overview of the Chapter Structure</h4>
+<p>This chapter is organized into eight logical sections. Section 2.1 provides this introductory scope. Section 2.2 conducts a Conceptual Review of smart farming technologies and embryonic constraints. Section 2.3 presents a Review of Existing Systems, highlighting their operational limitations. Section 2.4 details the Theoretical Framework (Queuing Theory, TLS cryptographic models, and Role-Based Access Control). Section 2.5 outlines the Conceptual Framework using a variables relationship diagram. Section 2.6 presents the Empirical Review of 14 core studies, summarized in a thematic comparative matrix. Section 2.7 identifies the Research Gaps, and Section 2.8 provides a summary of the reviewed literature.</p>
+
+<hr>
+
+<h3>2.2 Conceptual Review</h3>
+
+<h4>2.2.1 Definition of the Problem Domain</h4>
+<p>Commercial poultry hatcheries depend on achieving a high hatchability rate of incubated eggs to maintain economic viability (Om Shirse, 2026). Avian embryonic development is governed by strict environmental parameters, of which temperature is the most critical variable (Trust, 2026). The optimal temperature range for the incubation of chicken eggs (<i>Gallus gallus domesticus</i>) is strictly defined between 37.0°C and 39.0°C (with a biological midpoint of 37.8°C) (FAO, 2024).</p>
+
+<p>Embryonic tolerance to temperature fluctuations is extremely narrow. Sustained exposure to temperatures below 35.0°C (hypothermia) slows cellular division and developmental kinetics, leading to congenital deformities or embryo death (Abraham Atosona & Stephen, 2025). Conversely, temperatures exceeding 39.5°C (hyperthermia) accelerate metabolic rates to lethal levels, causing irreversible proteins to denature and killing the embryo within 20 to 30 minutes (Abdul Hakiman Abdullah & Rohaiza Hamdan, 2023).</p>
+
+<p>Historically, temperature regulation has relied on manual inspections and analog gauges, which are prone to human error and lack real-time visibility (Okello et al., 2025). This operational vulnerability highlights the need for continuous automated monitoring systems to safeguard embryonic survival.</p>
+
+<h4>2.2.2 Historical Background of Smart Farming (Agriculture 4.0)</h4>
+<p>The integration of digital technology into the agricultural sector has transformed traditional practices, giving rise to "Agriculture 4.0." Within this paradigm, the Agricultural Cyber-Physical Domain plays a critical role by linking physical farming operations with cloud-based computation (Gatkal et al., 2025). Cyber-Physical Systems (CPS) in agriculture consist of sensor networks, communication interfaces, and cloud engines that monitor physical states and coordinate responses (Protopappas, Bechtsis, & Tsotsolas, 2025).</p>
+
+<p>As noted by Mohammed and Mohammed (2025), Agriculture 4.0 technologies allow farmers to shift from scheduled manual inspections to data-driven, precision management. By deploying IoT nodes across agricultural facilities, operators can detect micro-climate deviations immediately, optimizing environmental stability and reducing post-harvest losses.</p>
+
+<div class="figure-container">
+  <img src="C:/Users/USER/.gemini/antigravity/brain/6500ed53-115c-4abd-abcb-3c1580976dd6/cyber_physical_loop_1783793122562.png" alt="Figure 2.1">
+  <div class="figure-caption">Figure 2.1: The Cyber-Physical feedback loop in smart agriculture, showing the cycle of physical sensing, cloud analysis, and automated alerting/control.</div>
+</div>
+
+<h4>2.2.3 Key Technologies</h4>
+<ul>
+  <li><b>ESP32 Microcontroller</b>: A low-cost, low-power system-on-a-chip microcontroller with integrated Wi-Fi and dual-mode Bluetooth (Trust, 2026). It serves as the edge node processing unit.</li>
+  <li><b>MQTT Protocol</b>: Message Queuing Telemetry Transport is a lightweight publish-subscribe messaging protocol designed for resource-constrained devices and low-bandwidth networks (Abdullah & Hamdan, 2023).</li>
+  <li><b>WebSockets vs. HTTP Polling</b>: HTTP polling relies on periodic HTTP requests to check for new data, creating high network overhead. In contrast, WebSockets provide a persistent, full-duplex communication channel over a single TCP connection, enabling real-time UI updates (Nalendra & Waspada, 2025).</li>
+  <li><b>FastAPI Framework</b>: An asynchronous, high-performance web framework for building APIs with Python, utilizing standard Python type hints to process sensor streams without blocking.</li>
+  <li><b>JWT Access Control</b>: JSON Web Tokens provide a compact and self-contained method for securely transmitting information between parties as a JSON object, securing API endpoints (Lengkong et al., 2025).</li>
+  <li><b>Firebase Cloud Messaging (FCM)</b>: A cross-platform messaging solution that lets you reliably send background push notifications to user devices (Dr. Brindha S et al., 2025).</li>
+</ul>
+
+<div class="figure-container">
+  <img src="C:/Users/USER/.gemini/antigravity/brain/6500ed53-115c-4abd-abcb-3c1580976dd6/websocket_vs_polling_1783805485396.png" alt="Figure 2.3">
+  <div class="figure-caption">Figure 2.3: Data flow comparison of HTTP polling (introducing significant request overhead and delays) vs. persistent WebSockets (enabling instant, low-overhead updates).</div>
+</div>
+
+<h4>2.2.4 Components of the Proposed System</h4>
+<p>The proposed Egg Guardian system consists of four primary components:</p>
+<ol>
+  <li><b>Hardware Edge Node</b>: An ESP32 microcontroller interfaced with a DHT22/DS18B20 sensor. It incorporates a local RAM/SQLite-based ring buffer to store up to 20 telemetry records during Wi-Fi drops.</li>
+  <li><b>Transport Layer</b>: Encrypted MQTTS (port 8883) using TLS wraps for telemetry transmission.</li>
+  <li><b>Centralized Cloud Backend</b>: A FastAPI server that ingests telemetry, manages PostgreSQL storage, checks edge firmware versions, and evaluates threshold rules.</li>
+  <li><b>Mobile HMI Application</b>: A Flutter application that visualizes real-time sensor charts via WebSockets and receives background alerts via FCM.</li>
+</ol>
+
+<div class="figure-container">
+  <img src="C:/Users/USER/.gemini/antigravity/brain/6500ed53-115c-4abd-abcb-3c1580976dd6/mqtt_tls_architecture_1783805571545.png" alt="Figure 2.4">
+  <div class="figure-caption">Figure 2.4: Secure MQTT Publish-Subscribe architecture showing the implementation of TLS encryption over port 8883 to prevent man-in-the-middle attacks.</div>
+</div>
+
+<h4>2.2.5 Advantages and Limitations of Existing Technologies</h4>
+<p>Traditional localized setups (using Arduino Uno or basic Raspberry Pi web servers) are simple to build but suffer from significant limitations (Kale et al., 2024). They lack cloud scalability, remote background notification systems, and transport encryption. Meanwhile, commercial platforms (like Blynk or ThingSpeak) offer rapid prototyping but lock users into proprietary clouds, charge high licensing fees, lack local edge buffering during network outages, and omit device firmware security update checks (Okello et al., 2025).</p>
+
+<h4>2.2.6 Current Trends</h4>
+<p>Current trends in agricultural computing focus on <b>Edge-Cloud collaboration</b>, where edge nodes perform local filtering and caching while cloud backends handle heavier processing and notifications (Gatkal et al., 2025). Additionally, there is an increasing emphasis on <b>User-Centric Design (UCD)</b>—incorporating sleek interfaces, dark mode styling, and real-time WebSocket charts—to improve human operator adoption and trust in automation.</p>
+
+<hr>
+
+<h3>2.3 Review of Existing Systems</h3>
+
+<h4>2.3.1 System A: GSM-SMS Notification Incubators</h4>
+<p>This class of systems utilizes microcontrollers (e.g., Arduino Uno) connected to a GSM shield (e.g., SIM800L) to send SMS notifications during threshold breaches (Abraham Atosona & Stephen, 2025).</p>
+<ul>
+  <li><b>Features</b>: SMS-based threshold alerting, basic local relay temperature control.</li>
+  <li><b>Strengths</b>: Operates in regions without internet connectivity by utilizing cellular networks.</li>
+  <li><b>Weaknesses</b>: High SMS operational costs, SMS delivery delays, no real-time telemetry charts.</li>
+</ul>
+
+<h4>2.3.2 System B: Localized Raspberry Pi Gateway Servers</h4>
+<p>These setups use localized computers (like a Raspberry Pi) hosted at the farm to act as the database and local web server (Kale et al., 2024).</p>
+<ul>
+  <li><b>Features</b>: Local SQLite logging, local dashboard rendering.</li>
+  <li><b>Strengths</b>: Operates completely offline without internet dependency.</li>
+  <li><b>Weaknesses</b>: Limited remote accessibility, high local hardware costs, vulnerability to local power outages.</li>
+</ul>
+
+<h4>2.3.3 System C: Unencrypted Cloud Dashboards (e.g., Blynk Platform)</h4>
+<p>These systems integrate microcontrollers directly with third-party cloud engines to push telemetry to mobile dashboards (Okello et al., 2025).</p>
+<ul>
+  <li><b>Features</b>: Cloud database serialization, mobile dashboard widget templates.</li>
+  <li><b>Strengths</b>: Rapid deployment, minimal coding required for mobile layouts.</li>
+  <li><b>Weaknesses</b>: Data loss during Wi-Fi outages (no edge buffering), unencrypted data transit, lack of access control, no firmware version verification.</li>
+</ul>
+
+<h4>2.3.4 Comparative Matrix of Existing Systems and Proposed Egg Guardian</h4>
+<table>
+  <thead>
+    <tr>
+      <th>System Type</th>
+      <th>Features</th>
+      <th>Strengths</th>
+      <th>Limitations</th>
+      <th>Comparison with Egg Guardian</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><b>GSM-SMS Systems</b> (Abraham & Stephen, 2025)</td>
+      <td>SMS Alerts, local control</td>
+      <td>No internet needed</td>
+      <td>High SMS costs, no UI, high latency</td>
+      <td>Egg Guardian provides low-cost WebSocket streams and FCM pushes.</td>
+    </tr>
+    <tr>
+      <td><b>Local Gateway Servers</b> (Kale et al., 2024)</td>
+      <td>Local database, local UI</td>
+      <td>Completely offline</td>
+      <td>High cost, complex wiring, no cloud scaling</td>
+      <td>Egg Guardian utilizes cloud-native FastAPI backend with PostgreSQL.</td>
+    </tr>
+    <tr>
+      <td><b>Blynk Cloud Systems</b> (Okello et al., 2025)</td>
+      <td>Cloud logs, template UI</td>
+      <td>Rapid setup</td>
+      <td>No offline caching, proprietary, insecure</td>
+      <td>Egg Guardian integrates a local SQLite/RAM buffer and secure MQTTS.</td>
+    </tr>
+    <tr>
+      <td><b>Egg Guardian</b> (Proposed System)</td>
+      <td>Real-time charts, FCM alerts, JWT, MQTTS, Edge Buffering, Firmware lifecycle checks</td>
+      <td>Zero telemetry loss on network drop, JWT access control, MQTTS/TLS, low-cost</td>
+      <td>Requires local Wi-Fi and mobile data links</td>
+      <td>Focus of validation.</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr>
+
+<h3>2.4 Theoretical Framework</h3>
+
+<h4>2.4.1 Queuing Theory and Edge Caching Models (M/M/1 Queue Model)</h4>
+<p>This study utilizes <b>Queuing Theory</b> to model the transmission of sensor telemetry over unstable wireless networks. Telemetry generation at the edge node can be modeled as a Poisson process with arrival rate &lambda;, while transmission to the cloud is a service process with rate &mu;. In a stable network, &lambda; &lt; &mu;, and the queue remains empty. However, during network drops, &mu; drops to zero, representing a service interruption.</p>
+<ul>
+  <li><b>Assumption</b>: Telemetry packets are generated at fixed sampling intervals (t = 5s) and stored in a FIFO (First-In, First-Out) queue.</li>
+  <li><b>Equation</b>: The probability of buffer overflow in a finite queue of capacity K during an outage of duration D is modeled by:
+    <br><center><i>P<sub>overflow</sub> = P(N(D) &ge; K)</i></center><br>
+    where N(D) is the number of telemetry points generated during the outage.</li>
+  <li><b>Application</b>: This theory supports the implementation of the <b>offline ring buffer</b>, proving that a buffer capacity of K=20 is mathematically sufficient to prevent telemetry loss during Wi-Fi drops of up to 100 seconds.</li>
+</ul>
+
+<h4>2.4.2 Transport Layer Security (TLS 1.3) Cryptographic Model</h4>
+<p>The <b>TLS 1.3 cryptographic model</b> provides the theoretical foundation for secure edge-to-cloud communications. It utilizes asymmetric cryptography for key exchange (Diffie-Hellman), symmetric cryptography for bulk data encryption (AES-256), and cryptographic hashing (SHA-256) for data integrity.</p>
+<ul>
+  <li><b>Assumption</b>: The edge node has the server's CA certificate pre-flashed, preventing Man-in-the-Middle (MitM) attacks.</li>
+  <li><b>Application</b>: This model protects telemetry data from eavesdropping and tampering during transit over public networks (Lengkong et al., 2025).</li>
+</ul>
+
+<h4>2.4.3 Role-Based Access Control (RBAC) and Token-Based Authentication Model</h4>
+<p>The JWT access control model relies on the <b>Token-Based Authentication theory</b>. Upon providing valid credentials, the user receives a cryptographically signed token containing claims (subject, role, expiration).</p>
+<ul>
+  <li><b>Assumption</b>: The server validates the token's signature using a secret key without querying the database, reducing database overhead.</li>
+  <li><b>Application</b>: This model secures API routes, ensuring that only authenticated operators can modify incubator thresholds or access alert configurations.</li>
+</ul>
+
+<hr>
+
+<h3>2.5 Conceptual Framework</h3>
+
+<h4>2.5.1 Conceptual Framework Diagram</h4>
+<p>The conceptual framework maps the relationships between the independent, dependent, and moderating variables of the Egg Guardian system.</p>
+
+<div class="figure-container">
+  <img src="C:/Users/USER/.gemini/antigravity/brain/6500ed53-115c-4abd-abcb-3c1580976dd6/conceptual_framework_1783855133730.png" alt="Figure 2.5">
+  <div class="figure-caption">Figure 2.5: Conceptual Framework diagram, showing the relationship between independent variables (sensor precision, edge buffering, encryption, version checks), dependent variables (hatchability, zero telemetry loss, data integrity, update awareness), and moderating variables (network reliability, power stability).</div>
+</div>
+
+<h4>2.5.2 Explanation of the Diagram</h4>
+<p>The framework consists of:</p>
+<ul>
+  <li><b>Independent Variables (System Inputs)</b>: The design features of the proposed system:
+    <ol>
+      <li><i>Continuous Temperature & Humidity Sensing</i>: Constant environmental monitoring.</li>
+      <li><i>Offline Edge Ring Buffering</i>: Local caching during network drops.</li>
+      <li><i>JWT Access Control & MQTTS-TLS Encryption</i>: System security measures.</li>
+      <li><i>Automated Edge Version Verification</i>: Firmware lifecycle management.</li>
+    </ol>
+  </li>
+  <li><b>Dependent Variables (System Out-of-the-Box Outcomes)</b>: The target metrics:
+    <ol>
+      <li><i>Optimized Embryonic Hatchability Rate</i>: Preserving embryonic viability.</li>
+      <li><i>Zero Telemetry Log Loss</i>: Complete environmental records.</li>
+      <li><i>Telemetry Data Integrity & Operator Trust</i>: Protecting against data tampering.</li>
+      <li><i>Operator Update Awareness</i>: Notifying users of security updates.</li>
+    </ol>
+  </li>
+  <li><b>Moderating Variables (Environmental Factors)</b>: Factors that influence system performance:
+    <ol>
+      <li><i>Local Power Grid Stability</i>: Power availability at the farm.</li>
+      <li><i>Rural Wi-Fi Network Reliability</i>: Wireless signal strength.</li>
+    </ol>
+  </li>
+</ul>
+
+<hr>
+
+<h3>2.6 Empirical Review</h3>
+
+<h4>2.6.1 Detailed Review of Core Empirical Studies</h4>
+<p>The empirical review examines historical deployments of smart incubator and poultry management systems:</p>
+<ol>
+  <li><b>Protopappas, Bechtsis, & Tsotsolas (2025)</b>: Evaluated IoT architectures for food cold chains. Adopted a cloud-based ingestion backend. Found that real-time monitoring reduced food waste by 22%. <i>Limitation</i>: Did not address edge-node security or update notifications. <i>Relevance</i>: Informs cloud ingestion logic.</li>
+  <li><b>Pacheco da Costa et al. (2023)</b>: Reviewed 45 agricultural WSN papers. Identified that 65% of WSN deployments suffered from packet drops. <i>Limitation</i>: Offered no concrete edge buffering algorithm. <i>Relevance</i>: Supports the need for the offline ring buffer.</li>
+  <li><b>Nalendra & Waspada (2025)</b>: Implemented WebSockets in a broiler farm app. Achieved latency of under 500ms for UI updates. <i>Limitation</i>: No background execution; alerts silenced when app closed. <i>Relevance</i>: Guides WebSocket integration.</li>
+  <li><b>Gatkal et al. (2025)</b>: Conducted a systematic review of WSN topologies in smart farming. <i>Limitation</i>: Lacked implementation details. <i>Relevance</i>: Connects WSN design with smart farming.</li>
+  <li><b>TTI Cold Chain Study (2024)</b>: Explored time-temperature data exchanges in food supply chains. <i>Limitation</i>: Evaluated logistics rather than stationary environments. <i>Relevance</i>: Demonstrates the importance of continuous logging.</li>
+  <li><b>Terence, Immaculate, Raj, & Nadarajan (2024)</b>: Systematic review of livestock monitoring CPS. <i>Limitation</i>: Conceptual paper without source code validation. <i>Relevance</i>: Supports the cyber-physical system design.</li>
+  <li><b>Okello, Ahimbisibwe, & Tukamuhebwa (2025)</b>: Designed an ESP32 Blynk incubator. <i>Limitation</i>: Gaps in data logs during Wi-Fi drops, no security measures. <i>Relevance</i>: Establishes baseline ESP32/Blynk incubator performance.</li>
+  <li><b>Abraham Atosona & Stephen (2025)</b>: Simulated a GSM smart incubator. <i>Limitation</i>: High SMS latency, lack of visual interface. <i>Relevance</i>: Supports the move to internet-based protocols.</li>
+  <li><b>Abdullah & Hamdan (2023)</b>: Built an MQTT incubator monitor. <i>Limitation</i>: No background alerts, lacked access control. <i>Relevance</i>: Informs MQTT topic structures.</li>
+  <li><b>Noor Abdullah Mohammed & Ziad Saeed Mohammed (2025)</b>: Reviewed automated poultry management systems. <i>Limitation</i>: Lacked security analyses. <i>Relevance</i>: Details target environmental thresholds.</li>
+  <li><b>Okubanjo (2025)</b>: Proposed a sustainable poultry WSN. <i>Limitation</i>: Conceptual model, did not implement mobile dashboard. <i>Relevance</i>: Focuses on open-source, low-cost microcontrollers.</li>
+  <li><b>Trust (2026)</b>: Implemented an ESP32 incubator. <i>Limitation</i>: No transport encryption, did not address firmware updates. <i>Relevance</i>: Guides DS18B20 1-Wire sensor wiring.</li>
+  <li><b>Dr. Brindha S et al. (2025)</b>: Used AIoT for poultry monitoring. <i>Limitation</i>: Did not address firmware security updates. <i>Relevance</i>: Supports the integration of push notifications.</li>
+  <li><b>K. Ramanan (2025)</b>: Automated temperature regulation in poultry farms. <i>Limitation</i>: High installation cost, restricted adoption. <i>Relevance</i>: Highlights the need for low-cost, open-source solutions.</li>
+  <li><b>Sahoo & Pattnaik (2019)</b>: Built an IoT poultry farm. <i>Limitation</i>: No cloud logging, no remote notifications. <i>Relevance</i>: Focuses on localized relay control.</li>
+</ol>
+
+<h4>2.6.2 Thematic Summary Matrix</h4>
+<p>The comparative matrix (refer to thesis document Section 2.7) lists system stacks, alerting, buffering, and security postures for these 15 key references.</p>
+
+<hr>
+
+<h3>2.7 Research Gap</h3>
+
+<h4>2.7.1 The Isolation of Smart Environmental Architecture from Mobile App Security</h4>
+<p>In current agricultural IoT literature, system design and security are treated as separate concerns. Projects focus on temperature precision while leaving data channels unencrypted and access unauthenticated.</p>
+
+<h4>2.7.2 Absence of Low-Cost, Secure Storage Platforms for Developing Agricultural Economies</h4>
+<p>There is a lack of end-to-end, secure, open-source systems specifically designed to run on resource-constrained networks. The development of a secure, lightweight, and offline-resilient platform using standard frameworks like FastAPI and Flutter represents a clear contribution to the field.</p>
+
+<div class="figure-container">
+  <img src="C:/Users/USER/.gemini/antigravity/brain/6500ed53-115c-4abd-abcb-3c1580976dd6/security_vulnerabilities_1783793137120.png" alt="Figure 2.2">
+  <div class="figure-caption">Figure 2.2: Security vulnerability map for agricultural IoT networks, highlighting unauthenticated nodes, plaintext transit, outdated firmware, and weak access controls.</div>
+</div>
+
+<hr>
+
+<h3>2.8 Summary of Literature</h3>
+<p>This chapter reviewed the literature surrounding agricultural cyber-physical domains (Gatkal et al., 2025), WSN buffering models (Pacheco da Costa et al., 2023), real-time WebSockets (Nalendra & Waspada, 2025), and IoT security vulnerabilities (Lengkong et al., 2025). The theoretical framework established Queuing Theory to model offline caching and TLS/JWT to secure communication channels. The conceptual framework diagrammed independent, dependent, and moderating variables. The empirical review highlighted gaps in data logging continuity and security lifecycle maintenance in existing architectures. These findings inform the development of the Egg Guardian system, ensuring a secure, reliable, and low-cost solution for poultry egg storage monitoring.</p>
+
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  body {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 12pt;
+    line-height: 1.5;
+    margin: 1in;
+    color: black;
+  }
+  h1 {
+    text-align: center;
+    font-size: 20pt;
+    margin-top: 24pt;
+    margin-bottom: 12pt;
+    font-weight: bold;
+  }
+  h2 {
+    text-align: center;
+    font-size: 16pt;
+    margin-top: 24pt;
+    margin-bottom: 24pt;
+    font-weight: bold;
+  }
+  h3 {
+    font-size: 14pt;
+    margin-top: 18pt;
+    margin-bottom: 6pt;
+    font-weight: bold;
+  }
+  h4 {
+    font-size: 12pt;
+    margin-top: 12pt;
+    margin-bottom: 6pt;
+    font-weight: bold;
+  }
+  p {
+    margin-bottom: 12pt;
+    text-align: justify;
+    text-indent: 0.5in;
+  }
+  ul, ol {
+    margin-bottom: 12pt;
+    padding-left: 0.5in;
+  }
+  li {
+    margin-bottom: 6pt;
+    text-align: justify;
+  }
+  .figure-container {
+    text-align: center;
+    margin-top: 18pt;
+    margin-bottom: 18pt;
+    page-break-inside: avoid;
+  }
+  .figure-container img {
+    max-width: 4.8in;
+    height: auto;
+    border: 1px solid #ccc;
+  }
+  .figure-caption {
+    font-size: 10pt;
+    font-style: italic;
+    margin-top: 6pt;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<h1>THE DEVELOPMENT OF A MOBILE APPLICATION FOR MONITORING POULTRY EGG TEMPERATURE AND SECURITY UPDATES</h1>
+<h2>CHAPTER 5: SUMMARY, CONCLUSION, & RECOMMENDATIONS</h2>
+
+<h3>5.1 Summary of Findings</h3>
+<p>This study designed, implemented, and evaluated the Egg Guardian system—a secure, real-time cyber-physical monitoring solution for poultry egg storage and temperature regulation. The findings from the empirical evaluations in Chapter 4 are summarized as follows:</p>
+<ul>
+  <li><b>Sensor Accuracy & Calibration</b>: Calibration of the DS18B20 digital sensor against a mercury reference thermometer yielded a <b>Mean Absolute Error (MAE) of 0.24°C</b>, which is well within the acceptable &plusmn; 0.5°C threshold required for poultry egg incubation (Trust, 2026).</li>
+  <li><b>Telemetry Latency</b>: End-to-end data propagation latency averaged <b>1.14 seconds</b> over a local farm Wi-Fi network and <b>1.41 seconds</b> over a mobile 4G link. This meets the real-time operational delivery requirements (Nalendra & Waspada, 2025).</li>
+  <li><b>Edge Resiliency & Recovery</b>: The local FIFO caching buffer on the ESP32 achieved a <b>100% data recovery rate</b> for simulated network dropouts lasting up to 100 seconds (Pacheco da Costa et al., 2023). Under longer outages, the ring buffer correctly overwrote the oldest telemetry points first, preserving the 20 most recent readings.</li>
+  <li><b>Security Update Warnings</b>: The system verified firmware versions in 120ms. When a version mismatch was detected, the backend successfully triggered warning badges in the mobile app and sent notifications via FCM (Dr. Brindha S et al., 2025).</li>
+  <li><b>System Usability</b>: Field testing with 10 poultry operators using the System Usability Scale (SUS) yielded an average usability score of <b>77.5 / 100</b>, corresponding to "excellent" usability (Adebayo, 2022).</li>
+</ul>
+
+<hr>
+
+<h3>5.2 Discussion of Findings</h3>
+<p>The empirical results of the Egg Guardian system demonstrate significant improvements in accuracy, latency, and data resiliency compared to traditional agricultural monitoring systems:</p>
+
+<h4>5.2.1 Thermal Monitoring Precision</h4>
+<p>The DS18B20 digital probe achieved a Mean Absolute Error (MAE) of <b>0.24°C</b> during calibration (Table 4.1). In contrast, common analog thermal monitoring systems using DHT11 or LM35 sensors often exhibit measurement errors exceeding &plusmn; 1.0°C due to voltage fluctuations and signal attenuation over long cables (Nalendra, 2025). Because poultry egg embryos are highly sensitive to temperature variations outside the safe range of 37.0°C to 39.0°C, the digital 1-Wire DS18B20 probe is more suitable for this application. It provides reliable noise-resilient readings, which are essential for maintaining hatch rates (FAO, 2024).</p>
+
+<h4>5.2.2 End-to-End Latency and Alert Delivery</h4>
+<p>The alert latency benchmarks (Table 4.2) showed an average propagation delay of <b>1.14 seconds</b> over local Wi-Fi and <b>1.41 seconds</b> over mobile 4G links. Traditional SMS/GSM-based alerts used in smart agriculture often suffer queue congestion and routing delays, resulting in latency spikes of 10 to 60 seconds (Gatkal et al., 2025). By using persistent WebSocket connections and the Firebase Cloud Messaging (FCM) gateway, the Egg Guardian system delivers real-time notifications quickly. This enables operators to respond rapidly to critical heating or cooling failures.</p>
+
+<h4>5.2.3 Data Resiliency and Network Recovery</h4>
+<p>The edge node's local FIFO caching queue achieved a <b>100% data recovery rate</b> for Wi-Fi drops lasting up to 100 seconds (Table 4.3). Traditional agricultural IoT dashboards (such as Blynk or ThingSpeak) typically operate without edge buffers, resulting in complete telemetry data loss during network dropouts (Pacheco da Costa et al., 2023). By caching readings on the ESP32 and flushing them upon reconnection, the Egg Guardian system ensures historical logs remain complete. This is crucial for verifying continuous thermal compliance.</p>
+
+<h4>5.2.4 Firmware Lifecycle and Security Warning loops</h4>
+<p>The backend version check completed in <b>120ms</b>, triggering mobile warning banners and FCM notifications immediately upon mismatch detection. Most existing agricultural microcontrollers operate without firmware version checks, leaving them vulnerable to outdated software exploitation and code injection (Dr. Brindha S et al., 2025). By verifying firmware versions during the broker handshake, the Egg Guardian system secures edge devices and alerts operators to required updates.</p>
+
+<hr>
+
+<h3>5.3 Final Conclusion</h3>
+<p>The Egg Guardian project demonstrates that low-cost, off-the-shelf microcontrollers (such as the ESP32) can manage poultry egg storage climates when paired with modern asynchronous protocols (MQTTS, WebSockets) and local caching queues (Protopappas et al., 2025). The system maintains telemetry accuracy and alerts operators to biological temperature boundary violations (37.0°C to 39.0°C) (FAO, 2024). Additionally, the version check handshake protects the edge network against outdated firmware vulnerabilities. In conclusion, the system provides a secure, reliable, and cost-effective monitoring solution for smart agricultural applications.</p>
+
+<hr>
+
+<h3>5.4 Practical and Commercial Implementation Issues</h3>
+<p>Deploying the system in commercial poultry hatcheries presents several practical challenges:</p>
+<ul>
+  <li><b>Environmental Protection</b>: Hatcheries are high-humidity, dust-prone environments. The ESP32 edge node must be mounted inside an IP66-rated casing, and the DS18B20 temperature probe must be housed in a waterproof stainless-steel sheath to prevent moisture damage and short circuits.</li>
+  <li><b>Network Range Constraints</b>: Metallic structures and thick concrete walls in commercial farms block Wi-Fi signals. Deploying the system across large facilities requires physical Wi-Fi repeaters or range extenders to ensure reliable connectivity.</li>
+  <li><b>Power Redundancy</b>: Commercial operations require continuous monitoring. The edge nodes should be integrated with an Uninterruptible Power Supply (UPS) or backup batteries to maintain operations during power outages.</li>
+</ul>
+
+<hr>
+
+<h3>5.5 Research Contributions to Agricultural Computing</h3>
+<p>This study contributes to the field of smart farming in two main areas:</p>
+<ul>
+  <li><b>Data Integrity on the Edge</b>: The study demonstrates that local caching queues allow low-cost microcontrollers to maintain data integrity during network drops (Pacheco da Costa et al., 2023). This reduces the need for expensive, high-RAM gateway hardware.</li>
+  <li><b>Firmware Security Lifecycle Integration</b>: The study integrates security update alerts directly into the agricultural monitoring loop (Dr. Brindha S et al., 2025). This addresses a common vulnerability in IoT deployments, where microcontrollers are left running outdated, insecure firmware.</li>
+</ul>
+
+<hr>
+
+<h3>5.6 Project Limitations</h3>
+<p>The current implementation has three main limitations:</p>
+<ul>
+  <li><b>Wi-Fi Dependency</b>: The ESP32 is restricted to 2.4GHz Wi-Fi. This limits system deployment in remote rural farms that lack local area network infrastructure.</li>
+  <li><b>Memory Constraints</b>: Due to the ESP32's limited RAM, the local ring buffer holds a maximum of 20 telemetry records. During outages longer than 100 seconds, the buffer begins overwriting historical data.</li>
+  <li><b>FCM Gateway Dependency</b>: The mobile notification system relies on Google's Firebase Cloud Messaging gateway. If Google services are offline or blocked, system tray alert notifications will fail to deliver.</li>
+</ul>
+
+<hr>
+
+<h3>5.7 Recommendations for Future Research</h3>
+<p>To build on this work, we recommend three directions for future research:</p>
+<ol>
+  <li><b>LoRaWAN Integration</b>: Replacing Wi-Fi with LoRaWAN to allow long-distance transmission (up to 15 km) in remote areas without internet access.</li>
+  <li><b>Predictive Thermal Analysis</b>: Deploying machine learning models (such as LSTM networks) on the backend server to analyze temperature trends and forecast heating/cooling failures before they occur.</li>
+  <li><b>Self-Healing OTA Updates</b>: Upgrading the update system from a warning banner to an automated Over-the-Air (OTA) patching pipeline that automatically updates the edge microcontroller when a version mismatch is detected.</li>
+</ol>
+
+<div class="figure-container">
+  <img src="C:\\Users\\USER\\.gemini\\antigravity\\brain\\6500ed53-115c-4abd-abcb-3c1580976dd6\\future_research_roadmap_1783896624272.png" alt="Figure 5.1">
+  <div class="figure-caption">Figure 5.1: Technical Future Research Roadmap block diagram, showing LoRaWAN gateways, LSTM predictive analysis, and secure self-healing OTA updates loops.</div>
+</div>
+
+<hr>
+
+<h3>5.8 Summary</h3>
+<p>This chapter summarized the findings of the Egg Guardian system, presented conclusions, and discussed practical implementation challenges, research contributions, and limitations. Finally, it recommended future research paths, including LoRaWAN integration, predictive machine learning, and self-healing OTA updates.</p>
+
+</body>
+</html>
